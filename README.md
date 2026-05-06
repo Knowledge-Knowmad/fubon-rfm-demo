@@ -3,14 +3,24 @@
 > 用 53 萬筆零售交易找出「誰是 VIP、誰快流失、誰可以喚回」。
 > 富邦 Fu+ 2026.05「AI 實用技巧：Excel 也能自動化分析」講座 demo。
 
-🌐 **線上 Demo**：https://knowledge-knowmad.github.io/fubon-rfm-demo/
+## 🌐 線上版本
+
+| 版本 | 網址 | 說明 |
+|---|---|---|
+| 靜態報告 | https://knowledge-knowmad.github.io/fubon-rfm-demo/ | 單頁概覽（v1） |
+| **互動瀏覽器（品牌版）** | https://knowledge-knowmad.github.io/fubon-rfm-demo/branded/ | 修訂版 RFM + 客戶逐筆查閱（採知識遊牧設計） |
+| **互動瀏覽器（中性版）** | https://knowledge-knowmad.github.io/fubon-rfm-demo/plain/ | 同功能、無品牌識別 |
+
+互動版可：搜尋／篩選任一客戶、看 RFM 標籤、展開該客戶完整消費歷史、樹狀圖即時篩選。
 
 ## 內容
 
 | 檔案 | 說明 |
 |---|---|
-| `index.html` | 單頁報告（圖片以 base64 內嵌，可離線開啟） |
-| `rfm_analysis.py` | 從 CSV 讀檔 → 清理 → 計算 R/F/M → 分群 → 出圖 |
+| `index.html` | v1 單頁靜態報告（圖片以 base64 內嵌，可離線開啟） |
+| `branded/index.html` | v2 互動瀏覽器（品牌版） |
+| `plain/index.html` | v2 互動瀏覽器（中性版） |
+| `rfm_analysis.py` | 從 CSV 讀檔 → 清理 → 計算 R/F/M → 分群 → 出圖（v1） |
 | `build_report.py` | 由分析結果產生 `index.html`（採用知識遊牧 brand 設計系統） |
 | `segment_summary.csv` | 八個分群的人數、平均 RFM、營收貢獻 |
 | `rfm_customers.csv` | 每位顧客的 R/F/M 數值、分數、所屬分群 |
