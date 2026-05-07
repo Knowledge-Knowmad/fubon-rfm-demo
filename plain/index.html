@@ -112,6 +112,62 @@
   .tm-cell.dark .tm-name { color: #fff; }
   .tm-cell.dark .tm-stat { color: rgba(255,255,255,0.85); }
 
+  /* ---- Treemap hover modal ---- */
+  .tm-hover-card {
+    position: fixed; z-index: 1000;
+    background: var(--bg-card); border: 1px solid var(--line-strong);
+    border-radius: 8px; box-shadow: 0 8px 28px rgba(0,0,0,0.18);
+    padding: 14px 16px; min-width: 280px; max-width: 340px;
+    pointer-events: none; opacity: 0; transform: translateY(4px);
+    transition: opacity 0.14s ease, transform 0.14s ease;
+    font-family: var(--font-zh);
+  }
+  .tm-hover-card.visible { opacity: 1; transform: translateY(0); }
+  .tm-hover-card .h {
+    display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+    padding-bottom: 8px; margin-bottom: 8px;
+    border-bottom: 1px solid var(--line);
+  }
+  .tm-hover-card .h .seg-name {
+    font-weight: 700; font-size: 14px; color: var(--primary);
+  }
+  .tm-hover-card .h .meta {
+    font-size: 11px; color: var(--text-secondary); white-space: nowrap;
+    font-family: var(--font-en);
+  }
+  .tm-hover-card .row {
+    display: grid; grid-template-columns: 64px 1fr auto;
+    gap: 8px; align-items: center;
+    padding: 6px 0; font-size: 12px;
+    border-bottom: 1px dotted var(--line);
+  }
+  .tm-hover-card .row:last-of-type { border-bottom: none; }
+  .tm-hover-card .row .id {
+    color: var(--primary); font-weight: 700; font-family: var(--font-en);
+    font-variant-numeric: tabular-nums;
+  }
+  .tm-hover-card .row .ctry {
+    color: var(--text-secondary); font-size: 11px;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .tm-hover-card .row .mon {
+    font-family: var(--font-en); font-weight: 600; color: var(--text);
+    text-align: right; font-variant-numeric: tabular-nums;
+  }
+  .tm-hover-card .row .rfm {
+    color: var(--text-secondary); font-size: 10px; font-family: var(--font-en);
+    margin-left: 4px;
+  }
+  .tm-hover-card .footer-tip {
+    margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--line);
+    font-size: 11px; color: var(--text-secondary); text-align: center;
+  }
+  .tm-hover-card .footer-tip kbd {
+    background: var(--bg-alt); padding: 1px 6px; border-radius: 3px;
+    border: 1px solid var(--line); font-size: 10px; color: var(--primary);
+    font-family: var(--font-en); font-weight: 600;
+  }
+
   .filters { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-bottom: 14px; }
   .filters input, .filters select {
     padding: 8px 12px; border: 1px solid var(--line-strong); border-radius: 6px; font-size: 13px;
@@ -523,8 +579,67 @@
         page = 0;
         render();
       });
+      // Hover modal handlers
+      el.addEventListener('mouseenter', () => {
+        clearTimeout(hoverTimer);
+        hoverTimer = setTimeout(() => showHoverCard(cell.name, el), 180);
+      });
+      el.addEventListener('mouseleave', () => {
+        clearTimeout(hoverTimer);
+        hideHoverCard();
+      });
       segContainer.appendChild(el);
     });
+  }
+
+  // ===== Treemap hover modal =====
+  const hoverCard = document.createElement('div');
+  hoverCard.className = 'tm-hover-card';
+  document.body.appendChild(hoverCard);
+  let hoverTimer = null;
+
+  function showHoverCard(segName, anchorEl) {
+    const segCusts = customers.filter(c => c.seg === segName);
+    const top = segCusts.slice().sort((a,b) => b.M - a.M).slice(0, 5);
+    const totalM = segCusts.reduce((s,c) => s + c.M, 0);
+    const segPct = (segCusts.length / totalCustomers * 100).toFixed(1);
+
+    let html = `
+      <div class="h">
+        <span class="seg-name">${segName}</span>
+        <span class="meta">${segCusts.length} 位 · ${segPct}%</span>
+      </div>`;
+    top.forEach(c => {
+      html += `
+        <div class="row">
+          <span class="id">${c.id}</span>
+          <span class="ctry" title="${c.country}">${c.country}<span class="rfm"> · ${c.rfm}</span></span>
+          <span class="mon">$${Math.round(c.M).toLocaleString()}</span>
+        </div>`;
+    });
+    if (segCusts.length > top.length) {
+      html += `<div class="footer-tip">顯示 Monetary Top ${top.length} / 共 ${segCusts.length} · 總 $${Math.round(totalM).toLocaleString()}<br>點擊載入<kbd>完整列表</kbd></div>`;
+    } else {
+      html += `<div class="footer-tip">點擊載入<kbd>完整列表</kbd></div>`;
+    }
+    hoverCard.innerHTML = html;
+    hoverCard.classList.add('visible');
+
+    // Position next to anchor cell
+    const r = anchorEl.getBoundingClientRect();
+    const cardR = hoverCard.getBoundingClientRect();
+    const gap = 10;
+    let left = r.right + gap;
+    let top_ = r.top;
+    if (left + cardR.width > window.innerWidth - 12) left = r.left - cardR.width - gap;
+    if (left < 12) left = 12;
+    if (top_ + cardR.height > window.innerHeight - 12) top_ = window.innerHeight - cardR.height - 12;
+    if (top_ < 12) top_ = 12;
+    hoverCard.style.left = left + 'px';
+    hoverCard.style.top  = top_ + 'px';
+  }
+  function hideHoverCard() {
+    hoverCard.classList.remove('visible');
   }
   renderTreemap();
   // re-layout on resize (debounced)
