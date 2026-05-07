@@ -10,6 +10,7 @@
 | 靜態報告 | https://knowledge-knowmad.github.io/fubon-rfm-demo/ | 單頁概覽（v1） |
 | **互動瀏覽器（品牌版）** | https://knowledge-knowmad.github.io/fubon-rfm-demo/branded/ | 修訂版 RFM + 客戶逐筆查閱（採知識遊牧設計） |
 | **互動瀏覽器（中性版）** | https://knowledge-knowmad.github.io/fubon-rfm-demo/plain/ | 同功能、無品牌識別 |
+| **賈伯斯視角評論** | https://knowledge-knowmad.github.io/fubon-rfm-demo/jobs/ | 用 Steve Jobs 心智模型評論這份 RFM 分析（基於 [steve-jobs-skill](https://github.com/alchaincyf/steve-jobs-skill) 的人格推斷） |
 
 互動版可：搜尋／篩選任一客戶、看 RFM 標籤、展開該客戶完整消費歷史、樹狀圖即時篩選。
 

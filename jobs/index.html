@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<title>Steve Jobs 視角對話實錄 ｜ 對 RFM 分析的評論</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%230d1117'/><text x='50%25' y='62%25' text-anchor='middle' fill='%237ee787' font-family='ui-monospace' font-weight='900' font-size='28'>SJ</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Inter:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d1117;
+    --bg-2: #161b22;
+    --bg-3: #1c2129;
+    --line: #21262d;
+    --line-2: #30363d;
+    --text: #c9d1d9;
+    --text-strong: #f0f6fc;
+    --text-mute: #8b949e;
+    --accent: #7ee787;
+    --accent-2: #3fa287;
+    --accent-soft: rgba(126,231,135,0.10);
+    --warn: #ffa657;
+    --link: #58a6ff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: var(--bg); color: var(--text);
+    font-family: "Inter", "Noto Sans TC", system-ui, sans-serif;
+    font-size: 16px; line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection { background: var(--accent-soft); color: var(--accent); }
+
+  /* Hero */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 60px 24px;
+    background:
+      radial-gradient(900px 500px at 50% 0%, rgba(126,231,135,0.08), transparent 70%),
+      radial-gradient(700px 400px at 50% 100%, rgba(63,162,135,0.06), transparent 70%),
+      var(--bg);
+    position: relative;
+  }
+  .hero-gif {
+    width: min(560px, 80vw);
+    border-radius: 16px;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 0 0 1px var(--line);
+    margin-bottom: 40px;
+  }
+  .hero h1 {
+    font-family: "Inter", "Noto Sans TC", sans-serif;
+    font-size: clamp(28px, 4vw, 44px); font-weight: 800;
+    color: var(--text-strong); letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+  .hero h1 .accent { color: var(--accent); }
+  .hero .kicker {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 24px;
+    display: inline-block; padding: 6px 14px;
+    border: 1px solid var(--accent); border-radius: 100px;
+    background: var(--accent-soft);
+  }
+  .hero .quote {
+    font-style: italic; font-size: clamp(15px, 1.5vw, 18px); line-height: 1.7;
+    color: var(--text-mute); max-width: 720px; margin: 24px auto 0;
+  }
+  .hero .quote .author { display: block; font-style: normal; font-size: 12px; color: var(--text-mute); margin-top: 12px; letter-spacing: 2px; }
+  .hero .meta {
+    margin-top: 48px; display: flex; flex-wrap: wrap; justify-content: center; gap: 16px 32px;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 12px; color: var(--text-mute);
+  }
+  .hero .meta .item { display: flex; gap: 8px; }
+  .hero .meta .label { color: var(--accent); font-weight: 700; letter-spacing: 1.5px; }
+  .hero .scroll-hint {
+    position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
+    color: var(--text-mute); font-size: 22px; opacity: 0.5;
+    animation: bounce 2s infinite;
+  }
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+    40% { transform: translateX(-50%) translateY(8px); }
+  }
+
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+
+  /* Disclaimer banner */
+  .disclaimer {
+    margin: 60px auto 0; max-width: 760px;
+    background: var(--bg-2); border: 1px solid var(--line-2);
+    border-left: 3px solid var(--warn);
+    padding: 14px 20px; font-size: 13px; color: var(--text-mute);
+    border-radius: 6px;
+  }
+  .disclaimer strong { color: var(--warn); margin-right: 6px; }
+  .disclaimer a { color: var(--warn); text-decoration: underline; }
+
+  /* Q&A */
+  .qa-section { padding: 64px 0 24px; }
+  .qa {
+    margin-bottom: 64px; padding-top: 32px;
+    border-top: 1px solid var(--line);
+  }
+  .qa:first-of-type { border-top: none; padding-top: 0; }
+  .qa-q {
+    color: var(--text-mute); font-size: 13px; letter-spacing: 1px;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    margin-bottom: 8px;
+  }
+  .qa-q b { color: var(--accent); font-weight: 700; }
+  .qa h2 {
+    font-family: "Noto Sans TC", "Inter", sans-serif;
+    font-size: clamp(22px, 2.8vw, 30px); font-weight: 700;
+    color: var(--text-strong); line-height: 1.45;
+    margin-bottom: 28px; letter-spacing: 0.3px;
+  }
+  .qa h2::before {
+    content: "Q. "; color: var(--accent); font-family: "JetBrains Mono", monospace;
+    font-weight: 700; font-size: 0.85em;
+  }
+  .qa .answer-prefix {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    color: var(--accent); font-size: 13px; font-weight: 700; letter-spacing: 1px;
+    margin-bottom: 16px; display: flex; align-items: center; gap: 12px;
+  }
+  .qa .answer-prefix::after { content: "❯"; opacity: 0.5; }
+  .jobs-avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    object-fit: cover; object-position: center 22%;
+    background: var(--bg-2);
+    border: 1px solid var(--line-2);
+    box-shadow: 0 0 0 2px var(--bg), 0 4px 12px rgba(0,0,0,0.4);
+    flex-shrink: 0;
+  }
+  .qa .answer-prefix .name {
+    display: flex; flex-direction: column; gap: 0; line-height: 1.3;
+  }
+  .qa .answer-prefix .name .role { color: var(--text-mute); font-size: 10px; letter-spacing: 1.5px; font-weight: 500; opacity: 0.8; }
+  .qa .answer { font-size: 16px; }
+  .qa .answer p { margin-bottom: 16px; color: var(--text); }
+  .qa .answer p strong { color: var(--text-strong); font-weight: 700; }
+  .qa .answer p em { color: var(--accent-2); font-style: italic; }
+  .qa .answer code {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    background: var(--bg-2); padding: 2px 7px; border-radius: 4px;
+    font-size: 0.88em; color: var(--accent); border: 1px solid var(--line-2);
+  }
+  .qa .answer h3 {
+    font-size: 18px; font-weight: 700; color: var(--text-strong);
+    margin: 28px 0 10px; letter-spacing: 0.3px;
+  }
+
+  .punch {
+    margin: 28px 0; padding: 18px 22px;
+    background: var(--bg-2); border-left: 3px solid var(--accent);
+    border-radius: 6px;
+    font-size: 18px; font-weight: 700; line-height: 1.55;
+    color: var(--text-strong);
+  }
+  .punch.warn { border-left-color: var(--warn); }
+  .punch em { color: var(--accent); font-style: normal; }
+
+  .big {
+    margin: 32px 0; font-size: clamp(28px, 3.5vw, 40px);
+    font-weight: 800; line-height: 1.25; color: var(--text-strong);
+    letter-spacing: 0.3px;
+  }
+  .big .hl { color: var(--accent); }
+
+  .qa .answer ul.actions { list-style: none; margin: 20px 0; padding: 0; }
+  .qa .answer ul.actions li {
+    padding: 14px 0 14px 36px; position: relative;
+    border-bottom: 1px dashed var(--line-2);
+    color: var(--text);
+  }
+  .qa .answer ul.actions li:last-child { border-bottom: none; }
+  .qa .answer ul.actions li::before {
+    content: "✕"; position: absolute; left: 8px; top: 14px;
+    color: var(--warn); font-weight: 800; font-family: "JetBrains Mono", monospace;
+  }
+  .qa .answer ul.actions.checks li::before { content: "▸"; color: var(--accent); }
+
+  .compare {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px; margin: 24px 0;
+  }
+  .compare .card {
+    background: var(--bg-2); border: 1px solid var(--line-2);
+    padding: 16px 18px; border-radius: 6px;
+    font-size: 14px;
+  }
+  .compare .card.dim { opacity: 0.65; }
+  .compare .card .badge {
+    display: inline-block; font-family: "JetBrains Mono", monospace;
+    font-size: 10px; letter-spacing: 1.5px; padding: 3px 8px;
+    border-radius: 3px; background: var(--line-2); color: var(--text-mute);
+    margin-bottom: 8px; font-weight: 700;
+  }
+  .compare .card.live .badge { background: var(--accent-soft); color: var(--accent); }
+  .compare .card .title {
+    font-family: "JetBrains Mono", monospace; font-size: 14px;
+    color: var(--text-strong); font-weight: 700; margin-bottom: 6px;
+  }
+  .compare .card p { margin: 4px 0 0; font-size: 13px; line-height: 1.6; color: var(--text-mute); }
+
+  .duo { display: grid; grid-template-columns: 1fr; gap: 16px; margin: 24px 0; }
+  @media (min-width: 720px) { .duo { grid-template-columns: 1fr 1fr; } }
+  .duo .side {
+    background: var(--bg-2); border: 1px solid var(--line-2);
+    padding: 18px 22px; border-radius: 6px;
+  }
+  .duo .side h4 {
+    font-family: "JetBrains Mono", monospace; font-size: 11px;
+    color: var(--text-mute); letter-spacing: 1.5px; margin-bottom: 12px;
+    text-transform: uppercase; font-weight: 700;
+  }
+  .duo .side.right { border-color: var(--accent); }
+  .duo .side.right h4 { color: var(--accent); }
+  .duo .side ul { list-style: none; padding: 0; }
+  .duo .side ul li {
+    padding: 6px 0 6px 18px; position: relative;
+    font-size: 14px; color: var(--text);
+  }
+  .duo .side ul li::before { content: "·"; position: absolute; left: 4px; color: var(--text-mute); }
+  .duo .side.right ul li::before { content: "›"; color: var(--accent); font-weight: 700; }
+
+  .quotes-section { padding: 64px 0 24px; border-top: 1px solid var(--line); }
+  .section-title {
+    font-family: "Inter", "Noto Sans TC", sans-serif;
+    font-size: 24px; font-weight: 800; color: var(--text-strong);
+    margin-bottom: 24px; letter-spacing: 0.5px;
+  }
+  .section-title .num {
+    font-family: "JetBrains Mono", monospace;
+    color: var(--accent); margin-right: 8px;
+  }
+  .quotes-table {
+    width: 100%; border-collapse: collapse;
+    background: var(--bg-2); border-radius: 6px; overflow: hidden;
+    border: 1px solid var(--line-2);
+  }
+  .quotes-table th, .quotes-table td {
+    padding: 12px 16px; text-align: left; font-size: 13.5px;
+    border-bottom: 1px solid var(--line);
+  }
+  .quotes-table tr:last-child td { border-bottom: none; }
+  .quotes-table th {
+    background: var(--bg-3); color: var(--accent);
+    font-family: "JetBrains Mono", monospace; font-size: 11px;
+    letter-spacing: 1.5px; text-transform: uppercase;
+  }
+  .quotes-table td.about { color: var(--text-mute); width: 35%; font-size: 12px; }
+  .quotes-table td.line { color: var(--text-strong); font-weight: 500; }
+
+  footer {
+    padding: 48px 24px 60px; text-align: center;
+    border-top: 1px solid var(--line); margin-top: 48px;
+    color: var(--text-mute); font-size: 12px; line-height: 1.9;
+    font-family: "JetBrains Mono", "Noto Sans TC", monospace;
+  }
+  footer a { color: var(--accent-2); text-decoration: none; border-bottom: 1px solid var(--line-2); }
+  footer a:hover { color: var(--accent); }
+  footer .row { margin-bottom: 6px; }
+  footer .sep { color: var(--line-2); margin: 0 8px; }
+
+  .qa, .quotes-section { opacity: 0; transform: translateY(20px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .qa.in, .quotes-section.in { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <img class="hero-gif" src="hero.gif" alt="Steve Jobs hero animation">
+  <span class="kicker">STEVE JOBS · PERSPECTIVE · 2026.05</span>
+  <h1>對 <span class="accent">RFM 分析</span>的評論</h1>
+  <div class="quote">
+    "Remembering that I'll be dead soon is the most important tool I've ever encountered to help me make the big choices in life."
+    <span class="author">— STANFORD COMMENCEMENT, 2005</span>
+  </div>
+  <div class="meta">
+    <div class="item"><span class="label">TARGET</span><span>RFM 客戶分群檢視（修訂版）</span></div>
+    <div class="item"><span class="label">FRAMING</span><span>Three Things</span></div>
+    <div class="item"><span class="label">DATE</span><span>2026.05.07</span></div>
+  </div>
+  <div class="scroll-hint">↓</div>
+</header>
+
+<div class="wrap">
+
+<div class="disclaimer">
+  <strong>免責聲明</strong>以賈伯斯視角推斷，基於公開言論的人格模型，非本人觀點。Skill 來源：<a href="https://github.com/alchaincyf/steve-jobs-skill">alchaincyf/steve-jobs-skill</a>。
+</div>
+
+<section class="qa-section">
+
+<article class="qa">
+  <div class="qa-q"><b>USER</b> · ROUND 1</div>
+  <h2>我做了一個 RFM 客戶分群檢視網頁，請給意見。</h2>
+  <div class="answer-prefix"><img class="jobs-avatar" src="jobs_portrait.png" alt="Steve Jobs"><div class="name"><span class="role">STEVE JOBS · MODE</span><span>JOBS</span></div></div>
+  <div class="answer">
+    <p>我看完了。點開了連結。樹狀圖點一下。隨便挑了三個 At Risk 客戶展開消費歷史。</p>
+    <div class="punch warn">差一點點就 amazing，但現在還是 <em>shit</em>。</div>
+    <p>不是不認真。我看得出三件事是真功夫——<strong>F_Score 塌陷的修正</strong>、<strong>「R=1 + M≥4 → At Risk」的救命規則</strong>、<strong>把爛條形圖換成樹狀圖</strong>。</p>
+    <p>還有客戶點下去能看到他兩年前的每張發票每件商品。<em>That part is genuinely cool.</em> 資料能直接被「摸到」，這就是產品。</p>
+    <p>但我有三件事要跟你說。</p>
+    <div class="punch">Anyone who's shipped product knows——<em>修一個沒人會發現的 bug，比做新功能難十倍。</em></div>
+  </div>
+</article>
+
+<article class="qa">
+  <div class="qa-q"><b>USER</b> · ROUND 2</div>
+  <h2>11 個分群是不是太多？</h2>
+  <div class="answer-prefix"><img class="jobs-avatar" src="jobs_portrait.png" alt="Steve Jobs"><div class="name"><span class="role">STEVE JOBS · MODE</span><span>JOBS</span></div></div>
+  <div class="answer">
+    <p>iPod 一個轉盤。iPhone 一個按鈕。你這個東西有 <strong>11 個</strong>桶子。</p>
+    <div class="duo">
+      <div class="side"><h4>YOUR 11 BUCKETS</h4>
+        <ul>
+          <li>Champions / Loyal / Potential Loyalists</li>
+          <li>New / Promising / Cannot Lose Them</li>
+          <li>At Risk / Developing / Hibernating</li>
+          <li>Lost / <strong>Others ← 510 個人</strong></li>
+        </ul>
+      </div>
+      <div class="side right"><h4>ENOUGH</h4>
+        <ul>
+          <li>該照顧的（VIP / Champions）</li>
+          <li>該救的（At Risk）</li>
+          <li>該放生的（Lost）</li>
+        </ul>
+      </div>
+    </div>
+    <p>「Others」510 個人——你不知道他們是誰，所以給他們一個沒意義的標籤。</p>
+    <p>「Developing」「Hibernating」「Promising」——這些是填充物，是分析師為了顯得「全面」而存在的詞。</p>
+    <div class="punch">真正有意義的只有三個：<em>該照顧的、該救的、該放生的。</em></div>
+    <p class="big">Three. Not <span class="hl">eleven</span>.</p>
+    <p>把另外八個的勇氣拿出來，砍掉。</p>
+  </div>
+</article>
+
+<article class="qa">
+  <div class="qa-q"><b>USER</b> · ROUND 3</div>
+  <h2>部署了兩個版本，舊的還佔首頁，這樣可以嗎？</h2>
+  <div class="answer-prefix"><img class="jobs-avatar" src="jobs_portrait.png" alt="Steve Jobs"><div class="name"><span class="role">STEVE JOBS · MODE</span><span>JOBS</span></div></div>
+  <div class="answer">
+    <p>我打開 <code>knowledge-knowmad.github.io/fubon-rfm-demo/</code>——拿到的是<strong>舊靜態報告</strong>。新東西藏在 <code>/branded/</code> 跟 <code>/plain/</code>。</p>
+    <div class="compare">
+      <div class="card dim">
+        <span class="badge">v1 · STATIC</span>
+        <div class="title">/  (root)</div>
+        <p>2026.05.04 的舊靜態報告。佔了首頁網址，但不是現在最好的版本。</p>
+      </div>
+      <div class="card live">
+        <span class="badge">v2 · BRANDED</span>
+        <div class="title">/branded/</div>
+        <p>知識遊牧設計系統，互動式樹狀圖。是新版本，但藏在子目錄。</p>
+      </div>
+      <div class="card dim">
+        <span class="badge">v2 · NEUTRAL</span>
+        <div class="title">/plain/</div>
+        <p>同樣功能、無品牌識別。「以防萬一」的備胎——這就是 hedging。</p>
+      </div>
+    </div>
+    <p>一個 URL，三個答案。<em>You're hedging.</em> 你不知道哪個是「對的」，所以全部留著。</p>
+    <div class="punch">Innovation is saying no to the other 999 ideas. <em>— WWDC 1997</em></div>
+    <p class="big"><span class="hl">Pick.</span></p>
+  </div>
+</article>
+
+<article class="qa">
+  <div class="qa-q"><b>USER</b> · ROUND 4</div>
+  <h2>客戶資料展示得很完整，這樣不夠嗎？</h2>
+  <div class="answer-prefix"><img class="jobs-avatar" src="jobs_portrait.png" alt="Steve Jobs"><div class="name"><span class="role">STEVE JOBS · MODE</span><span>JOBS</span></div></div>
+  <div class="answer">
+    <p>我點開一個 At Risk 客戶——花過 <strong>77,000 塊</strong>、最後消費 <strong>325 天前</strong>。</p>
+    <p>然後呢？</p>
+    <ul class="actions">
+      <li>沒有「丟進挽回名單」按鈕</li>
+      <li>沒有「複製 email」</li>
+      <li>沒有「標記為已聯繫」</li>
+      <li>沒有「指派給業務 X」</li>
+      <li><strong>沒有「下一步該對這個人做什麼」</strong></li>
+    </ul>
+    <p>這是一個閱讀工具，不是一個下決定的工具。</p>
+    <div class="punch">Data 的價值不在被看見，<em>在被用來行動</em>。</div>
+    <p>今天下午一個業務坐在這個頁面前，看完，關掉視窗——什麼事都沒發生。</p>
+    <p class="big">That's the <span class="hl">failure</span>.</p>
+    <p><em>You built a museum, not a workshop.</em></p>
+  </div>
+</article>
+
+<article class="qa">
+  <div class="qa-q"><b>USER</b> · ROUND 5</div>
+  <h2>那我現在該做什麼？</h2>
+  <div class="answer-prefix"><img class="jobs-avatar" src="jobs_portrait.png" alt="Steve Jobs"><div class="name"><span class="role">STEVE JOBS · MODE</span><span>JOBS</span></div></div>
+  <div class="answer">
+    <p>三個動作。</p>
+    <ul class="actions checks">
+      <li><strong>砍 11 個分群到 4 個。</strong>　Champions / Loyal / At Risk / Lost。其餘的勇氣拿出來，砍掉。</li>
+      <li><strong>砍 2 個版本到 1 個。</strong>　哪個是「對的」，就放在 root。其他 burn 掉。Hedging 不是策略。</li>
+      <li><strong>每張客戶卡片右邊加一個按鈕。</strong>　「下一步該對這個人做什麼」。讓資料變成行動。</li>
+    </ul>
+    <p>做完這三件事，這東西會從<strong>分析師的玩具</strong>，變成<strong>一個人下班前可以決定打 5 通電話給誰</strong>的武器。</p>
+    <p class="big">That's <span class="hl">insanely great</span>.</p>
+    <p>現在還不是。</p>
+    <p>我 1997 年畫了一個 2×2 矩陣就拯救了 Apple。<em>不需要天才，需要的是 courage。</em></p>
+  </div>
+</article>
+
+<article class="qa">
+  <div class="qa-q"><b>USER</b> · ROUND 6 · ONE MORE THING</div>
+  <h2>謝謝指教。</h2>
+  <div class="answer-prefix"><img class="jobs-avatar" src="jobs_portrait.png" alt="Steve Jobs"><div class="name"><span class="role">STEVE JOBS · MODE</span><span>JOBS</span></div></div>
+  <div class="answer">
+    <p>那個 F_Score 塌陷的修正？大多數人不會去抓那個 bug。</p>
+    <div class="punch">會抓的人，<em>是會做出好東西的人</em>。</div>
+    <p>產品的尊嚴，往往藏在沒人會看到的地方——柜子背面也要用好木頭。我父親是這麼教我的。</p>
+    <p class="big">Stay <span class="hl">foolish</span>.</p>
+  </div>
+</article>
+
+</section>
+
+<section class="quotes-section">
+  <h3 class="section-title"><span class="num">06</span>金句索引</h3>
+  <table class="quotes-table">
+    <thead>
+      <tr><th>金句</th><th>關於</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="line">差一點點就 amazing，但現在還是 shit</td><td class="about">整體評估</td></tr>
+      <tr><td class="line">修一個沒人會發現的 bug，比做新功能難十倍</td><td class="about">對工程細節的尊重</td></tr>
+      <tr><td class="line">Three. Not eleven.</td><td class="about">分群冗餘</td></tr>
+      <tr><td class="line">Innovation is saying no to the other 999 ideas</td><td class="about">部署決策</td></tr>
+      <tr><td class="line">Pick.</td><td class="about">兩版本之爭</td></tr>
+      <tr><td class="line">Data 的價值不在被看見，在被用來行動</td><td class="about">產品哲學</td></tr>
+      <tr><td class="line">You built a museum, not a workshop</td><td class="about">缺少行動入口</td></tr>
+      <tr><td class="line">不需要天才，需要的是 courage</td><td class="about">行動指南</td></tr>
+      <tr><td class="line">柜子背面也要用好木頭</td><td class="about">產品尊嚴</td></tr>
+      <tr><td class="line">Stay foolish</td><td class="about">收尾</td></tr>
+    </tbody>
+  </table>
+</section>
+
+</div>
+
+<footer>
+  <div class="row">Steve Jobs perspective skill: <a href="https://github.com/alchaincyf/steve-jobs-skill">alchaincyf/steve-jobs-skill</a> <span class="sep">·</span> Made with <a href="https://github.com/alchaincyf/nuwa-skill">女娲.skill</a></div>
+  <div class="row">Hero animation: <a href="https://github.com/alchaincyf/huashu-design">huashu-design</a> <span class="sep">·</span> 知識遊牧 × 富邦 F+ Demo · 2026.05</div>
+  <div class="row" style="margin-top:14px;color:var(--line-2);">— Go find your sleepless night —</div>
+</footer>
+
+<script>
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.qa, .quotes-section').forEach(el => obs.observe(el));
+</script>
+
+</body>
+</html>
