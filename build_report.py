@@ -60,7 +60,7 @@ html = f"""<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>RFM 顧客分群分析 ｜ 知識遊牧 × 富邦 Fu+</title>
+<title>RFM 顧客分群分析 ｜ 知識遊牧 × 範例</title>
 <link rel="icon" type="image/png" href="data:image/png;base64,{logo_sq_b64}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -299,7 +299,7 @@ html = f"""<!doctype html>
 <header class="hero">
   <div class="inner">
     <img class="logo-mark" src="data:image/png;base64,{logo_sq_b64}" alt="">
-    <div class="eyebrow">Knowmad × Fubon Fu+ · Demo</div>
+    <div class="eyebrow">Knowmad × Demo</div>
     <h1 class="hero-title">RFM 顧客分群分析</h1>
     <p class="hero-sub">用 53 萬筆零售交易，找出「誰是 VIP、誰快流失、誰可以喚回」<br>把 Excel 的客戶清單，變成可行動的營運決策。</p>
     <div class="chips">
@@ -432,7 +432,7 @@ html = f"""<!doctype html>
   <div class="row">
     <img src="data:image/png;base64,{logo_h_b64}" alt="知識遊牧工作室">
     <div>
-      © 知識遊牧工作室 · Knowmad ｜ 富邦 Fu+ 2026.05 講座 Demo<br>
+      © 知識遊牧工作室 · Knowmad ｜ 範例 2026.05 講座 Demo<br>
       <small>資料：UK Online Retail (公開資料集)，僅供教學示範。</small>
     </div>
   </div>
